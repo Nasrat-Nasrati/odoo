@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!--    this is the start of customization by Nasrat-->
+
+    <!--    customization of equepment from-->
+    <record id="hr_equipment_view_form" model="ir.ui.view">
+        <field name="name">equipment.form</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath position="attributes" expr="//field[@name='name']">
+                <attribute name="string">نوع موتر</attribute>
+                <attribute name="placeholder">مثلا: موتر هایس</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='equipment_assign_to']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath position="before" expr="//field[@name='equipment_assign_to']">
+                <field name="driver_name" string="اسم درایور"/>
+                <field name="father_name" string="ولد"/>
+                <field name="oiltype" string="نوعیت تیل"/>
+                <field name="model" string="مودل "/>
+                <field name="serial_no" string="نمبر پلیت"/>
+            </xpath>
+
+            <notebook>
+                <page string="مـــــلاحـــظات" name="description">
+                    <field name="note"/>
+                </page>
+                <!-- ... (other pages) ... -->
+            </notebook>
+
+
+            <field name="category_id" position="replace"/>
+            <field name="maintenance_team_id" position="replace"/>
+            <field name="technician_user_id" position="replace"/>
+            <field name="assign_date" position="replace"/>
+            <field name="scrap_date" position="replace"/>
+            <field name="location" position="replace"/>
+            <xpath position="replace" expr="//page[@name='product_information']"></xpath>
+            <xpath position="replace" expr="//page[@name='maintenance']"></xpath>
+        </field>
+    </record>
+
+
+<!--    customization of eqipment view list or tree-->
+  <record model="ir.ui.view" id="hr_equipment_view_tree">
+    <field name="model">maintenance.equipment</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_view_tree"/>
+    <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='name']" position="before">
+            <field name="id" string="شماره"/>
+        </xpath>
+
+        <xpath expr="//field[@name='name']" position="attributes">
+            <attribute name="string"> نوع موتر</attribute>
+        </xpath>
+
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="model" string="مودل"/>
+        </xpath>
+
+        <field name="serial_no" position="attributes">
+            <attribute name="string">نمبر پلیت</attribute>
+        </field>
+
+
+        <xpath expr="//field[@name='serial_no']" position="after">
+            <field name="oiltype" string="نوعیت تیل"/>
+            <field name="driver_name" string="اسم درایور"/>
+             <field name="father_name" string="ولد"/>
+        </xpath>
+
+        <xpath position="replace" expr="//field[@name='assign_date']"></xpath>
+        <xpath position="replace" expr="//field[@name='technician_user_id']"></xpath>
+        <xpath position="replace" expr="//field[@name='category_id']"></xpath>
+        <xpath expr="//field[@name='employee_id']" position="replace"/>
+        <xpath expr="//field[@name='department_id']" position="replace"/>
+
+    </field>
+</record>
+
+
+<!--    this is the kanbon equipments -->
+   <record id="maintenance_equipment_view_kanban" model="ir.ui.view">
+    <field name="name">maintenance.equipment.kanban</field>
+    <field name="model">maintenance.equipment</field>
+    <field name="inherit_id" ref="maintenance.hr_equipment_view_kanban"/>
+    <field name="arch" type="xml">
+        <kanban>
+<!--            can add something-->
+        </kanban>
+    </field>
+</record>
+
+
+    <!--        customization of new request or fc9-->
+    <record id="hr_equipment_request_view_form" model="ir.ui.view">
+        <field name="name">equipment.request.form</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='email_cc']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='priority']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='schedule_date']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='maintenance_team_id']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='maintenance_type']" position="replace">
+            </xpath>
+
+            <xpath expr="//field[@name='equipment_id']" position="replace">
+                <field name="equipment_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='duration']" position="replace">
+                <field name="duration" invisible="1"/>
+            </xpath>
+
+              <xpath expr="//field[@name='user_id']" position="replace">
+                <field name="user_id" invisible="1"/>
+            </xpath>
+
+
+
+            <xpath expr="//span[@class='ml8']" position="replace">
+            </xpath>
+
+
+
+<!--            <xpath expr="//field[@name='employee_id'][@groups='hr.group_hr_user']"-->
+<!--                   position="attributes">-->
+<!--                <attribute name="string">معامله شد به حساب</attribute>-->
+<!--            </xpath>-->
+
+
+            <xpath expr="//field[@name='employee_id' and @groups='!hr.group_hr_user']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_id' and @groups='hr.group_hr_user']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='request_date']" position="attributes">
+            <attribute name="string">تاریخ</attribute>
+        </xpath>
+
+             <xpath expr="//field[@name='description']" position="attributes">
+            <attribute name="string">تـــفصیلات جنـــس</attribute>
+        </xpath>
+
+            <!--            changing the name  new faield to the new Request-->
+            <xpath expr="//div[@class='oe_title']/label[@for='name']" position="attributes">
+            <attribute name="string">شعبه درخواست دهنده</attribute>
+        </xpath>
+
+            <xpath expr="//div[@class='oe_title']/h1/field[@name='name']" position="attributes">
+            <attribute name="placeholder">مدیریت عمومی وسایط</attribute>
+        </xpath>
+
+             <xpath expr="//field[@name='request_date']" position="before">
+                 <field name="owner" string="معامله شده به حساب"/>
+            </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                 <field name="quantity" string="مقدار"/>
+            </xpath>
+
+            <xpath expr="//field[@name='request_date']" position="after">
+                <field name="unite" string="واحد"/>
+            </xpath>
+
+             <xpath expr="//field[@name='unite']" position="after">
+                <field name="eqdamno" string="اقلام نمبر"/>
+            </xpath>
+
+             <xpath expr="//field[@name='quantity']" position="after">
+                <field name="seqn" string="شماره ذخیره"/>
+            </xpath>
+
+
+
+
+
+        </field>
+    </record>
+
+
+
+<!--    this is the customization of request list -->
+    <record id="hr_equipment_request_view_tree" model="ir.ui.view">
+        <field name="name">equipment.request.tree</field>
+        <field name="model">maintenance.request</field>
+         <field name="inherit_id" ref="maintenance.hr_equipment_request_view_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree/field[@name='category_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//tree/field[@name='name']" position="attributes">
+                <attribute name="string">شعبه درخواست دهنده </attribute>
+            </xpath>
+
+           <xpath expr="//field[@name='user_id']" position="attributes">
+            <attribute name="invisible">1</attribute>
+        </xpath>
+
+            <xpath expr="//tree/field[@name='stage_id']" position="after">
+                <field name="unite" string="واحد"/>
+            </xpath>
+
+             <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="owner" string="معامله شده به حساب"/>
+            </xpath>
+
+            <xpath expr="//field[@name='stage_id']" position="attributes">
+                <attribute name="string">مرحله درخواست</attribute>
+            </xpath>
+
+
+
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            <xpath expr="//tree/field[@name='unite']" position="before">
+                 <field name="quantity" string="تعداد"/>
+            </xpath>
+
+             <xpath expr="//tree/field[@name='unite']" position="after">
+                 <field name="eqdamno" string="اقلام نمبر"/>
+            </xpath>
+
+            <xpath expr="//tree/field[@name='eqdamno']" position="after">
+                 <field name="seqn" string="شماره ذخیره"/>
+            </xpath>
+
+             <xpath expr="//tree/field[@name='name']" position="before">
+                 <field name="id" string="شماره"/>
+            </xpath>
+
+<xpath expr="//field[@name='request_date']" position="attributes">
+            <attribute name="string">تاریخ</attribute>
+        </xpath>
+
+        </field>
+    </record>
+
+
+
+<!--    this is the action of distribution form -->
+    <record id="maintenance_distribution" model="ir.actions.act_window">
+        <field name="name">Distribution Form</field>
+        <field name="res_model">maintenance.distribution</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Add a Distribution Form in the maintenance Distribution
+          </p>
+        </field>
+    </record>
+
+
+        this is adding of new menu by the name of fcfive
+    <menuitem
+            id="menu_maintenance_distribution"
+            name="ثبت کردن فورمه ف-س-5"
+            parent="maintenance.menu_m_request"
+            action="maintenance_distribution"
+            sequence="3"/>
+
+
+<!--    this is the customization of tree list-->
+   <!-- Define the form view for maintenance.distribution model -->
+        <record id="view_maintenance_distribution_form" model="ir.ui.view">
+            <field name="name">maintenance.distribution.form</field>
+            <field name="model">maintenance.distribution</field>
+            <field name="arch" type="xml">
+                <form string="Maintenance Distribution Form">
+                    <!-- Define the fields you want to display on the form -->
+
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="distributionno" string="نمبر تکت توزیع"/>
+                                <field name="distributiondate" string="تاریخ"/>
+                                <field name="distributionplace" string="تحویلخانه توزیع کننده"/>
+                                <field name="requestno" string="نمبر درخواست"/>
+                                <field name="requestdate" string="تاریخ"/>
+                                <field name="requestoffice" string="شعبه درخواست کننده"/>
+                            </group>
+                            <group>
+                                <field name="quantity" string="مقدار"/>
+                                <field name="unite" string="تبصره ذخیره"/>
+                                <field name="unitprice" string="قیمت واحد"/>
+                                <field name="totalprice" string="قیمت مجموعی"/>
+                                <field name="responsible" string="معامله شد به حساب"/>
+                                <field name="discription" string="تفصیلات جنس"/>
+                            </group>
+                        </group>
+                    </sheet>
+<!-- Add the chatter widget -->
+            <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+<!--    this is customization of distribution from tree or list-->
+      <!-- Define the tree view for maintenance.distribution model -->
+        <record id="view_maintenance_distribution_tree" model="ir.ui.view">
+            <field name="name">maintenance.distribution.tree</field>
+            <field name="model">maintenance.distribution</field>
+            <field name="arch" type="xml">
+                <tree string="Maintenance Distributions">
+
+                    <field name="id" string="شماره" />
+                    <field name="distributionno" string="نمبر توزیع"/>
+                    <field name="distributiondate" string="تاریخ توزیع"/>
+                    <field name="distributionplace" string="تحویلخانه توزیع کننده"/>
+                    <field name="requestno" string="نمبر درخواست"/>
+                    <field name="requestdate" string="تاریخ درخواست"/>
+                    <field name="quantity" string="مقدار"/>
+                    <field name="unite" string="تبصره|واحد"/>
+                    <field name="unitprice" string="قیمت واحد"/>
+                    <field name="totalprice" string="قیمت مجموعی"/>
+                    <field name="responsible" string="معامله شد به حساب"/>
+                </tree>
+            </field>
+        </record>
+
+
+<!--    this is just for add kanban from to destribution form-->
+    <record id="view_maintenance_distribution_kanban" model="ir.ui.view">
+    <field name="name">maintenance.distribution.kanban</field>
+    <field name="model">maintenance.distribution</field>
+    <field name="arch" type="xml">
+        <kanban class="o_kanban_card">
+<!--            <field name="distributionno"/>-->
+<!--            <field name="distributiondate"/>-->
+<!--            <field name="distributionplace"/>-->
+<!--            <field name="unite"/>-->
+            <!-- Add more fields you want to display on the Kanban cards -->
+
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="o_kanban_primary">
+                        <field name="distributionno"/>
+                    </div>
+                    <div class="o_kanban_secondary">
+                        <field name="distributiondate"/>
+                        <field name="distributionplace"/>
+                        <field name="quantity"/>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
+
+
+
+</odoo>

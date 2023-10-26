@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<odoo>
+    <record id="report_request_from" model="ir.actions.report">
+        <field name="name">Request FC9 Form</field>
+        <field name="model">maintenance.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">maintenance_equipment_image.report_request</field>
+        <field name="report_file">maintenance_equipment_image.report_request</field>
+        <field name="binding_model_id" ref="model_maintenance_request"/>
+        <field name="binding_type">report</field>
+
+    </record>
+</odoo>
